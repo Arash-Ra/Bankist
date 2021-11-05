@@ -120,7 +120,7 @@ for (const [i, movement] of movements.entries()) {
 // If we want to break the loop we need to use for of
 // We cannot break the forEach loop
 
-console.log(`------- FOREACH -------`);
+console.log(`------- FOREACH method-------`);
 
 movements.forEach(function (mov, i, arr) {
   if (mov > 0) {
