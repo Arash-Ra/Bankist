@@ -61,6 +61,22 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+const displayMovements = function (movements) {
+  containerMovements.innerHTML = '';
+  movements.forEach(function (mov, i) {
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+    const html = `
+<div class="movements__row">
+<div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
+<div class="movements__value">${mov}</div>
+ </div>
+`;
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+
+displayMovements(account1.movements);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -70,75 +86,75 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 
 // Video 141
-let arr = ['a', 'b', 'c', 'd', 'e'];
+// let arr = ['a', 'b', 'c', 'd', 'e'];
 
-// Slice method
-console.log(arr.slice(2));
-console.log(arr.slice(2, 4));
-console.log(arr.slice(-2));
+// // Slice method
+// console.log(arr.slice(2));
+// console.log(arr.slice(2, 4));
+// console.log(arr.slice(-2));
 
-// last element of the array
-console.log(arr.slice(-1));
+// // last element of the array
+// console.log(arr.slice(-1));
 
-console.log(arr.slice(1, -2));
-console.log(arr.slice());
-console.log([...arr]);
+// console.log(arr.slice(1, -2));
+// console.log(arr.slice());
+// console.log([...arr]);
 
-// Splice
-console.log('Using Splice(2):');
-console.log(arr.splice(2));
-console.log(arr);
+// // Splice
+// console.log('Using Splice(2):');
+// console.log(arr.splice(2));
+// console.log(arr);
 
-// Reverse
-arr = ['a', 'b', 'c', 'd', 'e'];
-let arr2 = ['j', 'i', 'h', 'g', 'f'];
-console.log(arr2.reverse());
+// // Reverse
+// arr = ['a', 'b', 'c', 'd', 'e'];
+// let arr2 = ['j', 'i', 'h', 'g', 'f'];
+// console.log(arr2.reverse());
 
-// Concat
-const letters = arr.concat(arr2);
-console.log(letters);
-console.log([...arr, ...arr2]);
+// // Concat
+// const letters = arr.concat(arr2);
+// console.log(letters);
+// console.log([...arr, ...arr2]);
 
-// Join
-console.log(letters.join(' - '));
+// // Join
+// console.log(letters.join(' - '));
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-console.log(`------- FOR OF -------`);
-for (const [i, movement] of movements.entries()) {
-  if (movement > 0) {
-    console.log(`${i + 1}: You deposited ${movement}`);
-  } else console.log(`${i + 1}: You withdrew ${Math.abs(movement)}`);
-}
+// console.log(`------- FOR OF -------`);
+// for (const [i, movement] of movements.entries()) {
+//   if (movement > 0) {
+//     console.log(`${i + 1}: You deposited ${movement}`);
+//   } else console.log(`${i + 1}: You withdrew ${Math.abs(movement)}`);
+// }
 
-// If we want to break the loop we need to use for of
-// We cannot break the forEach loop
+// // If we want to break the loop we need to use for of
+// // We cannot break the forEach loop
 
-console.log(`------- FOREACH method-------`);
+// console.log(`------- FOREACH method-------`);
 
-movements.forEach(function (mov, i, arr) {
-  if (mov > 0) {
-    console.log(`${i + 1}: You deposited ${mov}`);
-  } else console.log(`${i + 1}: You withdrew ${Math.abs(mov)}`);
-});
+// movements.forEach(function (mov, i, arr) {
+//   if (mov > 0) {
+//     console.log(`${i + 1}: You deposited ${mov}`);
+//   } else console.log(`${i + 1}: You withdrew ${Math.abs(mov)}`);
+// });
 
-// Map
+// // Map
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
+// const currencies = new Map([
+//   ['USD', 'United States dollar'],
+//   ['EUR', 'Euro'],
+//   ['GBP', 'Pound sterling'],
+// ]);
 
-currencies.forEach(function (value, key, map) {
-  console.log(` ${key}: ${value}`);
-});
+// currencies.forEach(function (value, key, map) {
+//   console.log(` ${key}: ${value}`);
+// });
 
-// Set
+// // Set
 
-const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
-console.log(currenciesUnique);
+// const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
+// console.log(currenciesUnique);
 
-currenciesUnique.forEach(function (value, key) {
-  console.log(`${key}: ${value}`);
-});
+// currenciesUnique.forEach(function (value, key) {
+//   console.log(`${key}: ${value}`);
+// });
