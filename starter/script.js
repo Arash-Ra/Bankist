@@ -158,3 +158,34 @@ displayMovements(account1.movements);
 // currenciesUnique.forEach(function (value, key) {
 //   console.log(`${key}: ${value}`);
 // });
+
+// Video 148 Map method
+// Map method mackes an array and does the function we want, it does not change the original array
+// it works like forEach method
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const movementsUSD = movements.map(function (mov) {
+  return mov * 1.1;
+});
+
+const movementsUSD1 = movements.map(mov => mov * 1.1);
+
+console.log(`movementsUSD1= ${movementsUSD1}`);
+
+console.log('======== %c Map Method ==========', 'color:green');
+console.log(movements);
+console.log(movementsUSD);
+
+const movementsUSDfor = [];
+for (const mov of movements) movementsUSDfor.push(mov * 1.1);
+console.log(movementsUSDfor);
+
+const movementsDescriptions = movements.map(
+  (mov, i, arr) =>
+    `Movement ${i + 1}:  You ${mov > 0 ? 'Deposited' : 'Withdrew'} ${Math.abs(
+      mov
+    )} `
+);
+
+console.log(movementsDescriptions);
