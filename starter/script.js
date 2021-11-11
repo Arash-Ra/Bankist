@@ -183,6 +183,7 @@ console.log(movementsUSDfor);
 
 const movementsDescriptions = movements.map(
   (mov, i, arr) =>
+    // Turnary condition
     `Movement ${i + 1}:  You ${mov > 0 ? 'Deposited' : 'Withdrew'} ${Math.abs(
       mov
     )} `
