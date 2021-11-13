@@ -227,3 +227,13 @@ const withdrawals = movements.filter(mov => mov < 0);
 // });
 
 console.log(withdrawals);
+
+// Reduce method which returns only one value. The accumulator
+// 0 is the accumulator value at the begining
+// it is like we put total = 0 at the begining
+const balance = movements.reduce(function (acc, cur, i, array) {
+  console.log(`index: ${i} ${acc}`);
+  return acc + cur;
+}, 0);
+
+console.log(balance);
