@@ -77,6 +77,22 @@ const displayMovements = function (movements) {
 
 displayMovements(account1.movements);
 
+// const user = 'Steven Thomas Williams'; // user name: stw
+
+const createUsernames = function (accs) {
+  accs.forEach(function (acc) {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+  });
+};
+
+createUsernames(accounts);
+
+// it returns first letters of the Username all together
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -190,3 +206,24 @@ const movementsDescriptions = movements.map(
 );
 
 console.log(movementsDescriptions);
+
+// It returns anything that the return is true
+const deposits = movements.filter(function (mov) {
+  return mov > 0;
+});
+
+console.log(deposits);
+
+// another way of filtering the positive amounts in the movements array
+// Result: [200, 450, 3000, 70, 1300]
+const depositesFor = [];
+for (const mov of movements) if (mov > 0) depositesFor.push(mov);
+console.log(depositesFor);
+
+const withdrawals = movements.filter(mov => mov < 0);
+// The other way is:
+// const withdrawals = movements.filter(function (mov) {
+//   return mov < 0;
+// });
+
+console.log(withdrawals);
