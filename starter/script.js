@@ -79,6 +79,14 @@ displayMovements(account1.movements);
 
 // const user = 'Steven Thomas Williams'; // user name: stw
 
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const calcDisplayBalance = function (movemements) {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance} EUR`;
+};
+
+calcDisplayBalance(account1.movements);
+
 const createUsernames = function (accs) {
   accs.forEach(function (acc) {
     acc.username = acc.owner
@@ -179,7 +187,7 @@ createUsernames(accounts);
 // Map method mackes an array and does the function we want, it does not change the original array
 // it works like forEach method
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 const movementsUSD = movements.map(function (mov) {
   return mov * 1.1;
@@ -228,12 +236,19 @@ const withdrawals = movements.filter(mov => mov < 0);
 
 console.log(withdrawals);
 
-// Reduce method which returns only one value. The accumulator
+// Reduce method which returns only one value. It can be sum, max, multiply or so. Whatever we want
 // 0 is the accumulator value at the begining
 // it is like we put total = 0 at the begining
-const balance = movements.reduce(function (acc, cur, i, array) {
-  console.log(`index: ${i} ${acc}`);
-  return acc + cur;
-}, 0);
+const balance = movements.reduce((acc, cur, i) => acc + cur, 0);
 
 console.log(balance);
+let balance2 = 0;
+for (const mov of movements) balance2 += mov;
+console.log(balance2);
+
+const max = movements.reduce(
+  (acc, mov) => (acc > mov ? acc : mov),
+  movements[0]
+);
+
+console.log(`max = ${max}`);
