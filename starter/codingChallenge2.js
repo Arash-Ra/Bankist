@@ -12,7 +12,7 @@ const calcAverageHumanAge = function (ages) {
 
   // Calculating the adult ages average
   // Average
-  const avg = adult.reduce((acc, cur) => acc + cur, 0) / adult.length;
+  const avg = adult.reduce((acc, age) => acc + age, 0) / adult.length;
   console.log(avg);
 };
 
