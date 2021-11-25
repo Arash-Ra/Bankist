@@ -279,3 +279,20 @@ const max = movements.reduce(
 );
 
 console.log(`max = ${max}`);
+
+const firstWithdrawal = movements.find(mov => mov < 0);
+console.log(`Firstwithdrawal: ${firstWithdrawal}`);
+// find() method returns a value NOT an array
+// filter() method returns an array which meets the condition
+
+const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+console.log(account);
+
+const accountNew = function (accs) {
+  for (const acc of accs) {
+    if (acc.owner === 'Jessica Davis') console.log(acc);
+  }
+};
+// If theaccount owner is 'Jessica Davis' then it will print it's object to the console
+
+accountNew(accounts);
