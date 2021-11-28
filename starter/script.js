@@ -155,6 +155,7 @@ btnLogin.addEventListener('click', function (e) {
 
 btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
+  // This prevents the page to load the form each time click the button
   const amount = Number(inputTransferAmount.value);
   const receiverAcc = accounts.find(acc => inputTransferTo.value);
 });
