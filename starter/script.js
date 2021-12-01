@@ -78,9 +78,9 @@ const displayMovements = function (movements) {
 // const user = 'Steven Thomas Williams'; // user name: stw
 
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-const calcDisplayBalance = function (movements) {
-  const balance = movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${balance}€`;
+const calcDisplayBalance = function (acc) {
+  acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${acc.balance}€`;
 };
 
 const calcDisplaySummary = function (acc) {
@@ -120,6 +120,17 @@ const createUsernames = function (accs) {
 
 createUsernames(accounts);
 
+const updateUI = function (acc) {
+  // Display movements
+  displayMovements(acc.movements);
+
+  // Display balance
+  calcDisplayBalance(acc);
+
+  // Display Summary
+  calcDisplaySummary(acc);
+};
+
 // it returns first letters of the Username all together
 
 // Event listener
@@ -143,21 +154,58 @@ btnLogin.addEventListener('click', function (e) {
   // clear input fields
   inputLoginUsername.value = inputLoginPin.value = '';
   inputLoginPin.blur();
-  // Display movements
-  displayMovements(currentAccount.movements);
 
-  // Display balance
-  calcDisplayBalance(currentAccount.movements);
+  // Update UI
+  updateUI(currentAccount);
+});
 
-  // Display Summary
-  calcDisplaySummary(currentAccount);
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const index = accounts.findIndex(
+      acc => acc.username === currentAccount.username
+    );
+
+    // Delete account
+    accounts.splice(index, 1);
+
+    // Hide UI
+    containerApp.style.opacity = 0;
+
+    // Clear the field
+    inputCloseUsername.value = inputClosePin.value = '';
+  }
 });
 
 btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
   // This prevents the page to load the form each time click the button
   const amount = Number(inputTransferAmount.value);
-  const receiverAcc = accounts.find(acc => inputTransferTo.value);
+  const receiverAcc = accounts.find(
+    acc => acc.username === inputTransferTo.value
+  );
+
+  // This is to empty the field after enteredvalue and transferred amount
+  inputTransferAmount.value = inputTransferTo.value = '';
+
+  if (
+    amount > 0 &&
+    receiverAcc &&
+    amount <= currentAccount.balance &&
+    receiverAcc?.username !== currentAccount.username
+  ) {
+    // Doing the transfer
+    currentAccount.movements.push(-amount);
+    receiverAcc.movements.push(amount);
+
+    // Update interface UI
+
+    updateUI(currentAccount);
+  }
 });
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
