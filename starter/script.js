@@ -159,6 +159,23 @@ btnLogin.addEventListener('click', function (e) {
   updateUI(currentAccount);
 });
 
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    //Add movements
+    currentAccount.movements.push(amount);
+
+    // Update UI
+    updateUI(currentAccount);
+
+    // Clear the input field
+    inputLoanAmount.value = '';
+  }
+});
+
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();
 
@@ -293,11 +310,26 @@ btnTransfer.addEventListener('click', function (e) {
 // Map method mackes an array and does the function we want, it does not change the original array
 // it works like forEach method
 
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
+// Equality
+// console.log(movements.includes(200));
+
+// //Condition
+// const deposited = movements.some(mov => mov > 200);
+// console.log(deposited);
 // const movementsUSD = movements.map(function (mov) {
 //   return mov * 1.1;
 // });
+
+// Every method
+const depositedAll = movements.every(mov => mov > 0);
+console.log(depositedAll);
+
+const deposit = mov => mov > 0;
+console.log(movements.some(deposit));
+console.log(movements.every(deposit));
+console.log(movements.filter(deposit));
 
 // const movementsUSD1 = movements.map(mov => mov * 1.1);
 
