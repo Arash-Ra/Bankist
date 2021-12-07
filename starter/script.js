@@ -61,14 +61,17 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
-  movements.forEach(function (mov, i) {
+
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
 <div class="movements__row">
 <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
-<div class="movements__value">${mov}</div>
+<div class="movements__value">${mov}€</div>
  </div>
 `;
     containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -225,6 +228,13 @@ btnTransfer.addEventListener('click', function (e) {
   }
 });
 
+let sorted = false;
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
+});
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -324,13 +334,13 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // });
 
 // Every method
-const depositedAll = movements.every(mov => mov > 0);
-console.log(depositedAll);
+// const depositedAll = movements.every(mov => mov > 0);
+// console.log(depositedAll);
 
-const deposit = mov => mov > 0;
-console.log(movements.some(deposit));
-console.log(movements.every(deposit));
-console.log(movements.filter(deposit));
+// const deposit = mov => mov > 0;
+// console.log(movements.some(deposit));
+// console.log(movements.every(deposit));
+// console.log(movements.filter(deposit));
 
 // const movementsUSD1 = movements.map(mov => mov * 1.1);
 
@@ -408,3 +418,111 @@ console.log(movements.filter(deposit));
 // If theaccount owner is 'Jessica Davis' then it will print it's object to the console
 
 // accountNew(accounts);
+
+//// Video 162
+// Flat method
+// The flat method goes one level deep ONLY
+// const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+// console.log(arr.flat());
+// // result: [1, 2, 3, 4, 5, 6, 7, 8]
+
+// const arr1 = [1, 2, 3, 4, 5];
+// console.log(...arr1);
+// // result: 1 2 3 4 5
+
+// // if we have few nested arrays deep, we can use a parameter in the flat() method to expand the deepest arrays
+// const arrDeep = [[[1, 2], 3], [[4, 5], 6], 7, 8];
+// console.log(arrDeep.flat(1));
+// // result: [[1, 2], 3, [4, 5], 6, 7, 8]
+
+// console.log(arrDeep.flat(2));
+
+// // result: [1, 2, 3, 4, 5, 6, 7, 8]
+
+// const accountMovements = accounts.map(acc => acc.movements);
+// console.log(accountMovements);
+
+// const allMovements = accountMovements.flat();
+// console.log(allMovements);
+
+// const overalBalance = allMovements.reduce((acc, mov) => acc + mov, 0);
+// console.log(`Overal Balanace: ${overalBalance}`);
+
+// const overalBalance1 = accounts
+//   .map(acc => acc.movements)
+//   .flat()
+//   .reduce((acc, mov) => acc + mov, 0);
+
+// console.log(`Overal balance with chaigning, ${overalBalance1}`);
+// result: 17400
+
+// flatMap method
+// flatMap method goes only one level deep
+// const overalBalance2 = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce((acc, mov) => acc + mov, 0);
+
+//// Video 163
+// sort method
+// NOTE: the sort method will mutate the original array. So the original array will be changed to sorted one
+// const owners = ['Jonas', 'Adam', 'Fernando', 'Sarah'];
+// console.log(owners.sort());
+
+// console.log(owners);
+
+// to sort numbers
+// return <0, keep order
+// return >0 , switch order
+// Ascending
+// const allMovements1 = allMovements.sort((a, b) => {
+//   if (a > b) return 1;
+//   if (a < b) return -1;
+// });
+
+// // Descending
+// const allMovements2 = allMovements.sort((a, b) => {
+//   if (a > b) return -1;
+//   if (a < b) return 1;
+// });
+
+// const allMovements2 = allMovements.sort((a, b) => a - b);
+
+// // console.log(allMovements);
+// // console.log(allMovements1);
+// console.log(allMovements2);
+
+// Video 164
+// const arr2 = [1, 2, 3, 4, 5, 6, 7];
+// console.log(arr2);
+// console.log(new Array(1, 2, 3, 4, 5, 6, 7));
+
+// const x = new Array(7);
+// console.log(x);
+
+// x.fill(1);
+// console.log(x);
+
+// const y = Array.from({ length: 7 }, () => 1);
+// console.log(y);
+
+// const z = Array.from({ length: 7 }, (cur, i) => i + 1);
+// console.log(z);
+
+// // Exercise: make an array of 100 indexes with dice rolls
+// const t = Array.from({ length: 100 }, () => Math.floor(Math.random() * 6 + 1));
+// console.log(t);
+
+// If we want to get the movements from the UI
+
+labelBalance.addEventListener('click', function () {
+  // 1st way
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => Number(el.textContent.replace('€', ''))
+  );
+  console.log(movementsUI);
+
+  // 2nd way
+  const movementsUI2 = [...document.querySelectorAll('.movements__value')];
+  console.log(movementsUI2.map(el => el.textContent.replace('€', '')));
+});
