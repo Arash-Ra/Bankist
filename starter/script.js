@@ -498,6 +498,7 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // const x = new Array(7);
 // console.log(x);
+// result: [1,1,1,1,1,1,1]
 
 // x.fill(1);
 // console.log(x);
