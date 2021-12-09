@@ -515,15 +515,51 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // If we want to get the movements from the UI
 
-labelBalance.addEventListener('click', function () {
-  // 1st way
-  const movementsUI = Array.from(
-    document.querySelectorAll('.movements__value'),
-    el => Number(el.textContent.replace('€', ''))
-  );
-  console.log(movementsUI);
+// labelBalance.addEventListener('click', function () {
+//   // 1st way
+//   const movementsUI = Array.from(
+//     document.querySelectorAll('.movements__value'),
+//     el => Number(el.textContent.replace('€', ''))
+//   );
+//   console.log(movementsUI);
 
-  // 2nd way
-  const movementsUI2 = [...document.querySelectorAll('.movements__value')];
-  console.log(movementsUI2.map(el => el.textContent.replace('€', '')));
-});
+//   // 2nd way
+//   const movementsUI2 = [...document.querySelectorAll('.movements__value')];
+//   console.log(movementsUI2.map(el => el.textContent.replace('€', '')));
+// });
+
+// Video 166
+// Reviewing Arrays
+
+// 1. find out the whole deposited money in the bank (in accounts Array)
+
+const bankDepositSumm = accounts
+  .flatMap(acc => acc.movements)
+  .filter(mov => mov > 0)
+  .reduce((sum, cur) => sum + cur, 0);
+console.log(bankDepositSumm);
+
+// 2. How many deposits in the bank at least $1000
+// const NumDeposits1000 = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(mov => mov >= 1000).length;
+
+const NumDeposits1000 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((count, cur) => (cur >= 1000 ? count + 1 : count), 0);
+console.log(NumDeposits1000);
+console.log(accounts.flatMap(acc => acc.movements));
+
+// 3. Making an object in the reduce method
+
+const sums = accounts
+  .flatMap(acc => acc.movements)
+  .reduce(
+    (sums, cur) => {
+      cur > 0 ? (sums.deposit += cur) : (sums.withdrawal += cur);
+      return sums;
+    },
+    { deposit: 0, withdrawal: 0 }
+  );
+
+console.log(sums);
