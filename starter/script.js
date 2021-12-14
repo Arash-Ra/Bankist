@@ -552,14 +552,32 @@ console.log(accounts.flatMap(acc => acc.movements));
 
 // 3. Making an object in the reduce method
 
-const sums = accounts
+const { deposits, withrawals } = accounts
   .flatMap(acc => acc.movements)
   .reduce(
     (sums, cur) => {
-      cur > 0 ? (sums.deposit += cur) : (sums.withdrawal += cur);
+      // cur > 0 ? (sums.deposits += cur) : (sums.withdrawals += cur);
+      sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur;
       return sums;
     },
-    { deposit: 0, withdrawal: 0 }
+    { deposits: 0, withdrawals: 0 }
   );
 
-console.log(sums);
+console.log(deposits, withrawals);
+
+// 4. this is a nice title -> This Is a Nice Title
+const convertTtileCase = function (title) {
+  const capitalize = str => str[0].toUpperCase() + str.slice(1);
+  const exceptions = ['a', 'an', 'the', 'but', 'and', 'or', 'on', 'in', 'with'];
+
+  const titleCase = title
+    .toLowerCase()
+    .split(' ')
+    .map(word => (exceptions.includes(word) ? word : capitalize(word)))
+    .join(' ');
+  return capitalize(titleCase);
+};
+
+console.log(convertTtileCase('this is a nice title'));
+console.log(convertTtileCase('this is a LONG title but not too long'));
+console.log(convertTtileCase('and here is another title with an EXAMPLE'));
