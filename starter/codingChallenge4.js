@@ -11,4 +11,4 @@ const recommendedFood = function (dog) {
   dogs.flat().weight;
 };
 
-console.log(dogs.flat(4));
+console.log(dogs.flat(1));
