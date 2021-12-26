@@ -473,13 +473,14 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // to sort numbers
 // return <0, keep order
 // return >0 , switch order
-// Ascending
+
+//// Ascending
 // const allMovements1 = allMovements.sort((a, b) => {
 //   if (a > b) return 1;
 //   if (a < b) return -1;
 // });
 
-// // Descending
+//// Descending
 // const allMovements2 = allMovements.sort((a, b) => {
 //   if (a > b) return -1;
 //   if (a < b) return 1;
